@@ -732,3 +732,10 @@ public class SwerveSubsystem extends SubsystemBase
     return swerveDrive;
   }
 }
+public void setRobotRelative(boolean robotRelative) {
+    if (robotRelative) {
+        drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity.copy().robotRelative(true));
+    } else {
+        drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity.copy().robotRelative(false));
+    }
+}
