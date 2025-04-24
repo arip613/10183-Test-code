@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class AutoAlignWrapper extends SequentialCommandGroup {
     public AutoAlignWrapper(SwerveSubsystem drivebase, boolean alignToReefTagRelative) {
         addCommands(
-            // Switch to robot-relative mode
-            new InstantCommand(() -> drivebase.setRobotRelative(true)),
-            
-            // Execute the AlignToReefTagRelative command
+            // Enable heading correction
+            new InstantCommand(() -> drivebase.setHeadingCorrection(true)),
+
+            // Perform the auto-align
             new AlignToReefTagRelative(alignToReefTagRelative, drivebase).withTimeout(3),
-            
-            // Revert to field-relative mode
-            new InstantCommand(() -> drivebase.setRobotRelative(false))
+
+            // Disable heading correction (if not needed after alignment)
+            new InstantCommand(() -> drivebase.setHeadingCorrection(false))
         );
     }
 }
