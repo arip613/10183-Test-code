@@ -739,3 +739,6 @@ public void setRobotRelative(boolean robotRelative) {
         drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity.copy().robotRelative(false));
     }
 }
+public void setHeadingCorrection(boolean enabled) {
+    swerveDrive.setHeadingCorrection(enabled);
+}
