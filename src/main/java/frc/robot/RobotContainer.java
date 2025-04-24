@@ -188,8 +188,6 @@ public class RobotContainer
                               );
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
       //Operator Bindings
       operatorXbox.povUp().onTrue(new InstantCommand(() -> elevator.increaseStage(), elevator));
       operatorXbox.povDown().onTrue(new InstantCommand(() -> elevator.decreaseStage(), elevator));
@@ -209,8 +207,8 @@ operatorXbox.leftBumper()
     operatorXbox.x().onTrue(new InstantCommand(() -> hanger.setStage(0), hanger));
     operatorXbox.a().onTrue(new InstantCommand(() -> hanger.setStage(2), hanger));
     //Camera Stuff
- driverXbox.rightBumper().onTrue(new AlignToReefTagRelative(true, drivebase).withTimeout(3));
- driverXbox.leftBumper().onTrue(new AlignToReefTagRelative(false, drivebase).withTimeout(3));
+driverXbox.rightBumper().onTrue(new AutoAlignWrapper(drivebase, true));
+driverXbox.leftBumper().onTrue(new AutoAlignWrapper(drivebase, false));
   //Algae Stuff
     //  operatorXbox.x().whileTrue(new InstantCommand(() -> algae.setIntakeSpeed(AlgaeConstants.INTAKE_IN), algae));
     // operatorXbox.b().whileTrue(new InstantCommand(() -> algae.setIntakeSpeed(AlgaeConstants.INTAKE_OUT), algae));
